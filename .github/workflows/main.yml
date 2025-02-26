@@ -1,0 +1,25 @@
+name: Run WhatsApp Bot Daily
+
+on:
+  schedule:
+    - cron: "0 9 * * *"  # تشغيل الكود كل يوم الساعة 9 صباحًا بتوقيت UTC
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          pip install selenium
+          sudo apt-get install -y chromium-browser
+
+      - name: Run the bot
+        run: python whatsapp_auto.py
